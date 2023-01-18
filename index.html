@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+    <title>Binge Zone</title>
+</head>
+
+<body>
+    <header>
+        <h1 id="app_title">Binge Zone</h1>
+        <h2 id="app_subtitle">Information on all TV Shows</h2>
+        <div id="search_container">               
+            <input type="text" name="search" id="search_text" placeholder="Type Here to Search for a TV Show...">
+            <input type="image" src="./icons/search_icon.png" alt="Search" id="search_start">            
+        </div>
+    </header>
+    <main>
+        <section id="result_section" class="hidden">
+            <h3 id="search_query_container">Showing Results for <span id="search_query"></span></h3>
+            <div id="shows_container">
+                
+            </div>
+        </section>
+    </main>                            
+</body>
+
+</html>
