@@ -3,11 +3,12 @@ A SHOW CLASS CONTAINING ALL THE COMPONENTS THAT EACH SHOW WILL
 DISPLAY 
  */
 class Show{
-    constructor(title, image, genre, description){
+    constructor(title, image, genre, description, id){
         this.title = title;
         this.image = image;
         this.genre = genre;
         this.description = description;
+        this.id = id
     }
 
     toString(){
@@ -72,6 +73,7 @@ function processData(data){
                 data[n].show.image.medium,
                 data[n].show.genres,
                 data[n].show.summary,
+                data[n].show.id
             )
         }
         else{
@@ -80,6 +82,7 @@ function processData(data){
                 data[n].show.image = null,
                 data[n].show.genres,
                 data[n].show.summary,
+                data[n].show.id
             )
         }
         shows.push(s)
@@ -100,9 +103,11 @@ function displayShows(shows){
     //Turn result section visible
     document.getElementById('result_section').classList.remove('hidden');
 
+    //Create show elements on HTML
     for (let show in shows){
-        console.log(shows[show].toString());
         let show_node = createShowDomElement(shows[show]);
+        //Attach the display show detail function to each show
+        show_node.addEventListener('click', displayShowDetail);
         document.getElementById('shows_container').appendChild(show_node); 
     }
 }
@@ -147,6 +152,13 @@ function createShowDomElement(show){
     show_container.appendChild(genres_paragraph);
     show_container.appendChild(description_paragraph);
     return show_container;
+}
+
+
+
+/*THIS FUNCTION SHOWS THE SHOW DETAILED WHEN THE SHOW IS CLICKED */
+function displayShowDetail(){
+    console.log('Show is clicked');
 }
 
 
