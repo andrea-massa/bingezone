@@ -161,6 +161,25 @@ function createShowDomElement(show){
 /*THIS FUNCTION SHOWS THE SHOW DETAILED WHEN THE SHOW IS CLICKED */
 function displayShowDetail(show_id){
     console.log('Show is clicked, the id is ' + show_id);
+    console.log('Making API Call to api.tvmaze.com/shows/' + show_id);
+    let url = `https://api.tvmaze.com/shows/${show_id}`;
+
+    //Make the API Call to the TV Maze to get detailed infromation about the show clicked
+    fetch(url)
+    .then(function(response){
+        console.log('Successful Api Call!');
+        console.log(response);
+        response.json()
+        .then(function(data){
+           console.log(data);
+        })
+        .catch(function(e){
+            console.log('Error parsing the data: ' + e);
+        })
+    })
+    .catch(function(e){
+        console.log('Error making the request at ' + url + '\n' + e);
+    })
 }
 
 
