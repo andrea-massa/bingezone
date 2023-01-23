@@ -4,12 +4,12 @@ DISPLAY
  */
 class Show{
     constructor(tv_maze_data){
-        this.title = tv_maze_data.show.name,
-        this.genres = tv_maze_data.show.genres,
-        this.description = tv_maze_data.show.summary,
-        this.id = tv_maze_data.show.id
-        if(tv_maze_data.show.image){
-            this.image = tv_maze_data.show.image.medium
+        this.title = tv_maze_data.name,
+        this.genres = tv_maze_data.genres,
+        this.description = tv_maze_data.summary,
+        this.id = tv_maze_data.id
+        if(tv_maze_data.image){
+            this.image = tv_maze_data.image.medium
         }
         else{
             this.image = null
@@ -27,12 +27,21 @@ class Show{
 }
 
 
-// class Show_Detailed extends Show{
-//     constructor(title, image, genres, description, id, 
-//         language, status, runtime, premiered, ended, officialSite,
-//         rating){
-//         }
-// }
+
+/*
+AN EXTENSION OF THE SHOW CLASS THAT WILL BE USED WHEN THE USER WANTS
+TO SEE MORE INFOMATION ABOUT A SHOW
+*/
+class Show_Detailed extends Show{
+    constructor(tv_maze_data){
+        super(tv_maze_data);
+        this.rating = tv_maze_data.rating.average;
+        this.official_site = tv_maze_data.officialSite;
+        this.country = tv_maze_data.network.country.name;
+        this.premiered_date = tv_maze_data.premiered;
+        this.ended_date = tv_maze_data.ended;
+    }
+}
 
 
 
@@ -85,7 +94,7 @@ function searchShowDetail(show_id){
         console.log(response);
         response.json()
         .then(function(data){
-           console.log(data);
+           console.log(new Show_Detailed(data));
         })
         .catch(function(e){
             console.log('Error parsing the data: ' + e);
@@ -107,7 +116,7 @@ function processData(data){
     let shows = [];
 
     for (let n in data){
-        s = new Show(data[n]);
+        s = new Show(data[n].show);
         shows.push(s)
     }    
 
@@ -178,6 +187,7 @@ function createShowDomElement(show){
     show_container.appendChild(description_paragraph);
     return show_container;
 }
+
 
 
 function clearFormatting(search_bar, result_section, search_query){
