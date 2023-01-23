@@ -107,7 +107,9 @@ function displayShows(shows){
     for (let show in shows){
         let show_node = createShowDomElement(shows[show]);
         //Attach the display show detail function to each show
-        show_node.addEventListener('click', displayShowDetail);
+        show_node.addEventListener('click', function(){
+            displayShowDetail(shows[show].id)
+        });
         document.getElementById('shows_container').appendChild(show_node); 
     }
 }
@@ -157,8 +159,8 @@ function createShowDomElement(show){
 
 
 /*THIS FUNCTION SHOWS THE SHOW DETAILED WHEN THE SHOW IS CLICKED */
-function displayShowDetail(){
-    console.log('Show is clicked');
+function displayShowDetail(show_id){
+    console.log('Show is clicked, the id is ' + show_id);
 }
 
 
