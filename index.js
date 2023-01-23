@@ -3,23 +3,37 @@ A SHOW CLASS CONTAINING ALL THE COMPONENTS THAT EACH SHOW WILL
 DISPLAY 
  */
 class Show{
-    constructor(title, image, genre, description, id){
-        this.title = title;
-        this.image = image;
-        this.genre = genre;
-        this.description = description;
-        this.id = id
+    constructor(tv_maze_data){
+        this.title = tv_maze_data.show.name,
+        this.genres = tv_maze_data.show.genres,
+        this.description = tv_maze_data.show.summary,
+        this.id = tv_maze_data.show.id
+        if(tv_maze_data.show.image){
+            this.image = tv_maze_data.show.image.medium
+        }
+        else{
+            this.image = null
+        }
     }
 
     toString(){
         return(`
         \nTitle: ${this.title}
         \nImage: ${this.image}
-        \nGenre: ${this.genre}
+        \nGenres: ${this.genres}
         \nDescription: ${this.description}
         `)
     }
 }
+
+
+// class Show_Detailed extends Show{
+//     constructor(title, image, genres, description, id, 
+//         language, status, runtime, premiered, ended, officialSite,
+//         rating){
+//         }
+// }
+
 
 
 /*
@@ -57,6 +71,33 @@ function searchShows(event){
 
 
 
+/*THIS FUNCTION MAKES A API CALL TO TV MAZE IN ORDER TO GET DETAILED INFORMATION
+ABOUT A SHOW THAT WILL APPEAR WHENVER THE USER CLICKS ON A SHOW AFTER SEARCH */
+function searchShowDetail(show_id){
+    console.log('Show is clicked, the id is ' + show_id);
+    console.log('Making API Call to api.tvmaze.com/shows/' + show_id);
+    let url = `https://api.tvmaze.com/shows/${show_id}`;
+
+    //Make the API Call to the TV Maze to get detailed infromation about the show clicked
+    fetch(url)
+    .then(function(response){
+        console.log('Successful Api Call!');
+        console.log(response);
+        response.json()
+        .then(function(data){
+           console.log(data);
+        })
+        .catch(function(e){
+            console.log('Error parsing the data: ' + e);
+        })
+    })
+    .catch(function(e){
+        console.log('Error making the request at ' + url + '\n' + e);
+    })
+}
+
+
+
 /*
 THIS FUNCTION PROCESSES THE JSON DATA GIVEN IN ORDER TO CREATE OBJECTS 
 WITH THE INFORMATION WE NEED FOR EACH SHOW. EACH SHOW IS THEN PUSHED ON AN
@@ -64,27 +105,9 @@ ARRAY.
  */
 function processData(data){
     let shows = [];
-    let s;
 
     for (let n in data){
-        if(data[n].show.image){
-            s = new Show(
-                data[n].show.name,
-                data[n].show.image.medium,
-                data[n].show.genres,
-                data[n].show.summary,
-                data[n].show.id
-            )
-        }
-        else{
-            s = new Show(
-                data[n].show.name,
-                data[n].show.image = null,
-                data[n].show.genres,
-                data[n].show.summary,
-                data[n].show.id
-            )
-        }
+        s = new Show(data[n]);
         shows.push(s)
     }    
 
@@ -108,7 +131,7 @@ function displayShows(shows){
         let show_node = createShowDomElement(shows[show]);
         //Attach the display show detail function to each show
         show_node.addEventListener('click', function(){
-            displayShowDetail(shows[show].id)
+            searchShowDetail(shows[show].id)
         });
         document.getElementById('shows_container').appendChild(show_node); 
     }
@@ -139,7 +162,7 @@ function createShowDomElement(show){
 
     //Create the genres paragraph
     let genres_paragraph = document.createElement('p');
-    genres_paragraph.appendChild(document.createTextNode(show.genre));
+    genres_paragraph.appendChild(document.createTextNode(show.genres));
     genres_paragraph.classList.add('show-genre');
 
     //Create the description paragraph
@@ -155,33 +178,6 @@ function createShowDomElement(show){
     show_container.appendChild(description_paragraph);
     return show_container;
 }
-
-
-
-/*THIS FUNCTION SHOWS THE SHOW DETAILED WHEN THE SHOW IS CLICKED */
-function displayShowDetail(show_id){
-    console.log('Show is clicked, the id is ' + show_id);
-    console.log('Making API Call to api.tvmaze.com/shows/' + show_id);
-    let url = `https://api.tvmaze.com/shows/${show_id}`;
-
-    //Make the API Call to the TV Maze to get detailed infromation about the show clicked
-    fetch(url)
-    .then(function(response){
-        console.log('Successful Api Call!');
-        console.log(response);
-        response.json()
-        .then(function(data){
-           console.log(data);
-        })
-        .catch(function(e){
-            console.log('Error parsing the data: ' + e);
-        })
-    })
-    .catch(function(e){
-        console.log('Error making the request at ' + url + '\n' + e);
-    })
-}
-
 
 
 function clearFormatting(search_bar, result_section, search_query){
