@@ -91,10 +91,11 @@ function searchShowDetail(show_id){
     fetch(url)
     .then(function(response){
         console.log('Successful Api Call!');
-        console.log(response);
         response.json()
         .then(function(data){
-           console.log(new Show_Detailed(data));
+           let show = new Show_Detailed(data);
+           console.log(show);
+           displayShowDetails(show);
         })
         .catch(function(e){
             console.log('Error parsing the data: ' + e);
@@ -147,6 +148,20 @@ function displayShows(shows){
 }
 
 
+/*
+THIS FUNCTION DISPLAYS THE SHOW DETAIL ONCE THE USER CLICKS ON A SHOW
+*/
+function displayShowDetails(detailed_show){
+     //Turn show expanded section visible
+     document.getElementById('show_expanded_modal').classList.remove('hidden');
+     //Turn the background opaque
+     document.getElementById('result_section').classList.add('opaque');
+     
+     //Create detailed show Element and show it
+     document.getElementById('show_expanded_modal').appendChild(createDetailedShowDomElement(detailed_show))
+}
+
+
 
 /*
 THIS FUNCTION CREATES INDIVIDUAL DOM NODE ELEMENTS FOR EACH SHOW
@@ -189,8 +204,27 @@ function createShowDomElement(show){
 }
 
 
+/*
+THIS FUNCTION CREATES THE DOM ELEMENT FOR A DETAILED SHOW 
+WHICH WILL BE APPENDED INTO THE SHOW_EXPANDED_MODAL ELEMENT
+ */
+function createDetailedShowDomElement(detailed_show){
+    //Container
+    let d_show_container = document.createElement('div');
+    d_show_container.classList.add('detailed_show');
 
-function clearFormatting(search_bar, result_section, search_query){
+    //Show title
+    let d_show_title_heading = document.createElement('h3');
+    d_show_title_heading.innerText = detailed_show.title;
+    d_show_title_heading.classList.add('d_show_title')
+
+    d_show_container.append(d_show_title_heading);
+    return (d_show_container);
+}
+
+
+
+function clearFormatting(search_bar, result_section, show_expanded, search_query){
     if(search_bar){
         console.log('Clearing Bar')
         document.getElementById('search_text').value = '';
@@ -202,19 +236,33 @@ function clearFormatting(search_bar, result_section, search_query){
     if(result_section){
         console.log('Clearing Results')
         let container = document.getElementById('shows_container')
-        document.getElementById('shows_container').innerText = '';
+        container.innerText = '';
+    }
+    if(show_expanded){
+        console.log('Clearing Show Expanded')
+        let container = document.getElementById('show_expanded_modal')
+        container.innerText = '';
+        container.classList.add('hidden'); 
+        document.getElementById("result_section").classList.remove('opaque');
     }
 }
 
 
 
 window.addEventListener("load", function(){
-    clearFormatting(true, false, true);
+    //Resets the formatting
+    clearFormatting(true, true, true, true);
+
     //Attach the search function to the search buttons
     document.getElementById("search_start").addEventListener("click", searchShows)
     document.getElementById("search_text").addEventListener("keyup", function(event){
         if(event.code === 'Enter'){
             searchShows();
         }
+    })
+
+    //If the user is viewing a detailed show and clicks outside the panel, the panel shuld minimize
+    document.getElementsByTagName('body')[0].addEventListener('click', function(event){
+        clearFormatting(false, false, true, false);
     });
 })
