@@ -208,7 +208,18 @@ function createShowDomElement(show){
 THIS FUNCTION CREATES THE DOM ELEMENT FOR A DETAILED SHOW 
 WHICH WILL BE APPENDED INTO THE SHOW_EXPANDED_MODAL ELEMENT
  */
-function createDetailedShowDomElement(detailed_show){
+function createDetailedShowDomElement(detailed_show){    
+    function get_stars(){
+        //Round the rating to the nearest integer
+        let rating = Math.round(detailed_show.rating);        
+        //Based on the rating return x number of stars        
+        let stars_text = '';
+        for (let x = 0; x < rating; x++){            
+            stars_text += '*'
+        }                    
+        return stars_text;
+    }
+    
     //Container
     let d_show_container = document.createElement('div');
     d_show_container.classList.add('detailed_show');
@@ -216,9 +227,25 @@ function createDetailedShowDomElement(detailed_show){
     //Show title
     let d_show_title_heading = document.createElement('h3');
     d_show_title_heading.innerText = detailed_show.title;
-    d_show_title_heading.classList.add('d_show_title')
+    d_show_title_heading.classList.add('d_show_title');
 
-    d_show_container.append(d_show_title_heading);
+    //Show review in stars
+    let stars_container = document.createElement('span');    
+    stars_container.appendChild(document.createTextNode(get_stars()));    
+
+    //Show image
+    let d_show_image = document.createElement('img');
+    if(detailed_show.image != null){        
+        d_show_image.setAttribute('src', detailed_show.image);
+    }
+    else{
+        d_show_image.setAttribute('alt', 'No image available for this show');
+    }
+
+    //Put Everything together
+    d_show_container.append(d_show_title_heading);    
+    d_show_container.append(stars_container);   
+    d_show_container.append(d_show_image);
     return (d_show_container);
 }
 
