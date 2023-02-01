@@ -204,7 +204,7 @@ function createShowDomElement(show){
 }
 
 
-/*
+/*  
 THIS FUNCTION CREATES THE DOM ELEMENT FOR A DETAILED SHOW 
 WHICH WILL BE APPENDED INTO THE SHOW_EXPANDED_MODAL ELEMENT
  */
@@ -242,10 +242,28 @@ function createDetailedShowDomElement(detailed_show){
         d_show_image.setAttribute('alt', 'No image available for this show');
     }
 
+    //Show Description
+    let d_show_description = document.createElement('p');
+    d_show_description.innerHTML = detailed_show.description;
+
+    //Show Genres
+    let d_show_genres = document.createElement('p');
+    d_show_genres.appendChild(document.createTextNode(detailed_show.genres));
+
+    //Premiered and End dates
+    let d_show_pe = document.createElement('p');
+    d_show_pe.append(document.createTextNode(detailed_show.premiered_date), document.createTextNode(detailed_show.ended_date));
+
+    //Country
+    let d_show_country = document.createElement('p');
+    d_show_country.append(document.createTextNode(detailed_show.country));
+
+    //Official Website
+    let d_show_website = document.createElement('p');
+    d_show_website.append(document.createTextNode(detailed_show.official_site));
+
     //Put Everything together
-    d_show_container.append(d_show_title_heading);    
-    d_show_container.append(stars_container);   
-    d_show_container.append(d_show_image);
+    d_show_container.append(d_show_title_heading, stars_container, d_show_image, d_show_description, d_show_genres, d_show_pe, d_show_country, d_show_website);            
     return (d_show_container);
 }
 
