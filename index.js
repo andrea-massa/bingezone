@@ -201,6 +201,8 @@ function displayShowDetails(detailed_show){
         stars_container.appendChild(document.createTextNode(stars_text));    
 
         //Show image
+        let d_show_img_container = document.createElement('div');
+        d_show_img_container.classList.add('d_show_img_container');
         let d_show_image = document.createElement('img');
         if(detailed_show.image != null){        
             d_show_image.setAttribute('src', detailed_show.image);
@@ -208,29 +210,43 @@ function displayShowDetails(detailed_show){
         else{
             d_show_image.setAttribute('alt', 'No image available for this show');
         }
+        d_show_img_container.appendChild(d_show_image);
 
         //Show Description
         let d_show_description = document.createElement('p');
         d_show_description.innerHTML = detailed_show.description;
+        d_show_description.classList.add('d_show_description');
 
         //Show Genres
         let d_show_genres = document.createElement('p');
         d_show_genres.appendChild(document.createTextNode(detailed_show.genres));
+        d_show_genres.classList.add('d_show_genres');
 
         //Premiered and End dates
         let d_show_pe = document.createElement('p');
-        d_show_pe.append(document.createTextNode(detailed_show.premiered_date), document.createTextNode(detailed_show.ended_date));
+        d_show_pe.append(document.createTextNode(`Premiered: ${detailed_show.premiered_date}`), document.createTextNode(` Ended: ${detailed_show.ended_date}`));
+        d_show_pe.classList.add('d_show_prem&end');
 
         //Country
         let d_show_country = document.createElement('p');
-        d_show_country.append(document.createTextNode(detailed_show.country));
+        d_show_country.append(document.createTextNode(`Contry: ${detailed_show.country}`));
+        d_show_country.classList.add('d_show_country');
 
         //Official Website
         let d_show_website = document.createElement('p');
         d_show_website.append(document.createTextNode(detailed_show.official_site));
+        d_show_website.classList.add('d_show_website');
+
+        //Wrap show info section and image
+        let d_show_side_info = document.createElement('div');
+        d_show_side_info.append(d_show_genres, d_show_pe, d_show_country, d_show_website);
+        d_show_side_info.classList.add('d_show_side_info_container');
+        let wrapper = document.createElement('div');
+        wrapper.append(d_show_img_container, d_show_side_info);
+        wrapper.classList.add('d_show_header');
 
         //Put Everything together
-        d_show_container.append(d_show_title_heading, stars_container, d_show_image, d_show_description, d_show_genres, d_show_pe, d_show_country, d_show_website);            
+        d_show_container.append(d_show_title_heading, stars_container, wrapper, d_show_description);            
         return (d_show_container);
     }
 
