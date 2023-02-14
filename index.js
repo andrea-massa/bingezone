@@ -154,7 +154,7 @@ function displayShows(shows){
     }
 
     //Clear Previous search
-    clearFormatting(true, true, true);
+    clearFormatting(true, true, true, false);
 
     //Turn result section visible
     document.getElementById('result_section').classList.remove('hidden');
@@ -183,6 +183,7 @@ function displayShowDetails(detailed_show){
         //Container
         let d_show_container = document.createElement('div');
         d_show_container.classList.add('detailed_show');
+        d_show_container.setAttribute('id', 'd_show_container');
 
         //Show title
         let d_show_title_heading = document.createElement('h3');
@@ -250,11 +251,11 @@ function displayShowDetails(detailed_show){
         return (d_show_container);
     }
 
-     //Turn show expanded section visible
-     document.getElementById('show_expanded_modal').classList.remove('hidden');
-     
-     //Turn the background opaque
-     document.getElementById('result_section').classList.add('opaque');
+    //Turn show expanded section visible
+    document.getElementById('show_expanded_modal').classList.remove('hidden');
+    
+    //Turn the background opaque
+    document.getElementById('result_section').classList.add('opaque');
 
     //Disable scrolling
     window.onscroll = function(){
@@ -266,8 +267,23 @@ function displayShowDetails(detailed_show){
         show_div.style.pointerEvents = 'none';
     }
 
-     //Create detailed show Element and show it
-     document.getElementById('show_expanded_modal').appendChild(createDetailedShowDomElement(detailed_show))
+    //Create detailed show Element and show it
+    document.getElementById('show_expanded_modal').appendChild(createDetailedShowDomElement(detailed_show))
+
+    //Attach closing modal panel event to the closing button
+    document.getElementById('close-btn').addEventListener('click', function(){
+        //close modal panel
+        document.getElementById('show_expanded_modal').classList.add('hidden');
+        document.getElementById('result_section').classList.remove('opaque');
+        //enable scrolling
+        window.onscroll = function(){};
+        //enable clicking
+        for (let show_div of document.getElementsByClassName('tv-show')){
+            show_div.style.pointerEvents = 'auto';
+        }
+        //clear the formatting for the modal panel
+        clearFormatting(false, false, false, true);
+    })
 }
 
 
@@ -275,18 +291,23 @@ function displayShowDetails(detailed_show){
 /*
 THIS FUNCTION CLEARS THE FORMATTING OF THE PAGE BASED ON THREE PARAMETERS
  */
-function clearFormatting(search_bar, result_section, search_query){
+function clearFormatting(search_bar, result_section, search_query, modal_panel){
     //If this parameter is true, the search bar's text will be cleared
     if(search_bar){        
         document.getElementById('search_text').value = '';
+    }
+    //If this parameter is true, the results section where all the shows are listed will be cleared
+    if(result_section){        
+        document.getElementById('shows_container').innerText = '';        
     }
     //If this parameter is true, the 'showing results...' paragraph will be cleared
     if(search_query){       
         document.getElementById('search_query').value = '';
     }
-    //If this parameter is true, the results section where all the shows are listed will be cleared
-    if(result_section){        
-        document.getElementById('shows_container').innerText = '';        
+    //if this parameter is true, the detailed show section under the modal panel will be cleared
+    if(modal_panel){
+        document.getElementById('d_show_container').remove();
+        console.log('Reformatting modal panel');
     }
 }
 
@@ -294,7 +315,7 @@ function clearFormatting(search_bar, result_section, search_query){
 
 window.addEventListener("load", function(){
     //Resets the formatting
-    clearFormatting(true, true, true);
+    clearFormatting(true, true, true, false);
 
     //Attach the search function to the search buttons
     document.getElementById("search_start").addEventListener("click", searchShows)

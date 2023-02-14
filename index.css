@@ -131,6 +131,13 @@ header{
     border-radius: 10px;
     color: #FFFFFF;
 }
+    #close-btn{
+        border: solid white;
+        float: right;
+        position: relative;
+        bottom: 20px;       
+        text-align: center;
+    }
     .detailed_show{
         width: 90%;
         margin: auto auto 5% auto;
