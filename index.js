@@ -269,21 +269,25 @@ function displayShowDetails(detailed_show){
 
     //Create detailed show Element and show it
     document.getElementById('show_expanded_modal').appendChild(createDetailedShowDomElement(detailed_show))
+}
 
-    //Attach closing modal panel event to the closing button
-    document.getElementById('close-btn').addEventListener('click', function(){
-        //close modal panel
-        document.getElementById('show_expanded_modal').classList.add('hidden');
-        document.getElementById('result_section').classList.remove('opaque');
-        //enable scrolling
-        window.onscroll = function(){};
-        //enable clicking
-        for (let show_div of document.getElementsByClassName('tv-show')){
-            show_div.style.pointerEvents = 'auto';
-        }
-        //clear the formatting for the modal panel
-        clearFormatting(false, false, false, true);
-    })
+
+
+/*
+THIS FUNCTION CLOESES THE MODAL PANEL WHEN THE X ON TOP IS CLICKED
+ */
+function closeModalPanel(){
+    //close modal panel
+    document.getElementById('show_expanded_modal').classList.add('hidden');
+    document.getElementById('result_section').classList.remove('opaque');
+    //enable scrolling
+    window.onscroll = function(){};
+    //enable clicking
+    for (let show_div of document.getElementsByClassName('tv-show')){
+        show_div.style.pointerEvents = 'auto';
+    }
+    //clear the formatting for the modal panel
+    clearFormatting(false, false, false, true);
 }
 
 
@@ -292,6 +296,7 @@ function displayShowDetails(detailed_show){
 THIS FUNCTION CLEARS THE FORMATTING OF THE PAGE BASED ON THREE PARAMETERS
  */
 function clearFormatting(search_bar, result_section, search_query, modal_panel){
+    console.log('reformatting called');
     //If this parameter is true, the search bar's text will be cleared
     if(search_bar){        
         document.getElementById('search_text').value = '';
@@ -324,4 +329,7 @@ window.addEventListener("load", function(){
             searchShows();
         }
     })
+
+    //Attach closing modal panel function to the closing button
+    document.getElementById('close-btn').addEventListener('click', closeModalPanel);
 })
