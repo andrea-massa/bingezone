@@ -158,13 +158,13 @@ function displayShows(shows){
 
     //Turn result section visible
     document.getElementById('result_section').classList.remove('hidden');
-
+    
     //For each show in the array create a DOM element and attach it to the result section
     for (let show in shows){
         let show_node = createShowDomElement(shows[show]);
         //Attach the display show detail function to each show, so if user clicks on it, it'll be called
-        show_node.addEventListener('click', function(){
-            searchShowDetail(shows[show].id)
+        show_node.addEventListener('click', function searchDetails(){
+            searchShowDetail(shows[show].id);
         });
         document.getElementById('shows_container').appendChild(show_node); 
     }
@@ -255,7 +255,17 @@ function displayShowDetails(detailed_show){
      
      //Turn the background opaque
      document.getElementById('result_section').classList.add('opaque');
-     
+
+    //Disable scrolling
+    window.onscroll = function(){
+        window.scrollTo(0, 0);
+    };
+
+    //Disable clicking on other links
+    for (let show_div of document.getElementsByClassName('tv-show')){
+        show_div.style.pointerEvents = 'none';
+    }
+
      //Create detailed show Element and show it
      document.getElementById('show_expanded_modal').appendChild(createDetailedShowDomElement(detailed_show))
 }
