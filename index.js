@@ -191,15 +191,16 @@ function displayShowDetails(detailed_show){
         d_show_title_heading.classList.add('d_show_title');
 
         //Show review in stars
-        let stars_container = document.createElement('span');    
+        let stars_container = document.createElement('span');   
+        stars_container.classList.add('d_show_review_container'); 
             //Round the rating to the nearest integer
             let rating = Math.round(detailed_show.rating);        
             //Based on the rating return x number of stars        
-            let stars_text = '';
-            for (let x = 0; x < rating; x++){            
-                stars_text += '*'
-            }     
-        stars_container.appendChild(document.createTextNode(stars_text));    
+            for (let x = 0; x < rating; x++){
+                let star = document.createElement('span');
+                star.classList.add('star');
+                stars_container.appendChild(star);
+            }  
 
         //Show image
         let d_show_img_container = document.createElement('div');
@@ -230,12 +231,12 @@ function displayShowDetails(detailed_show){
 
         //Country
         let d_show_country = document.createElement('p');
-        d_show_country.append(document.createTextNode(`Contry: ${detailed_show.country}`));
+        d_show_country.append(document.createTextNode(`Country: ${detailed_show.country}`));
         d_show_country.classList.add('d_show_country');
 
         //Official Website
         let d_show_website = document.createElement('p');
-        d_show_website.append(document.createTextNode(detailed_show.official_site));
+        d_show_website.append(document.createTextNode(`Official Website: ${detailed_show.official_site}`));
         d_show_website.classList.add('d_show_website');
 
         //Wrap show info section and image

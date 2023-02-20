@@ -120,19 +120,19 @@ header{
 
 /*DETAILED SHOW VIEW*/
 #show_expanded_modal{
-    border: solid red;
+    /* border: solid red; */
     position: fixed;
-    top: 10%;
-    width: 70%;
+    top: 14%;
+    width: 70%;    
     margin-left: 15%;
     margin-right: 15%;
-    background-color: #323949;
+    background-color: #40445A;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     color: #FFFFFF;
 }
     #close-btn{
-        border: solid white;
+        /* border: solid white; */
         float: right;
         position: relative;
         bottom: 40px;       
@@ -151,38 +151,54 @@ header{
     }
     .detailed_show{
         width: 90%;
-        margin: auto auto 5% auto;
-        border: solid yellow;
+        margin: auto;
+        /* border: solid yellow; */
         display: flex;
         flex-direction: column;
         text-align: center;
         font-family: Hubballi;
     }
         .detailed_show h3{
-            font-size: large;
+            /* border: solid blue; */
+            font-size: x-large;
             font-weight: bold;
             font-family: Iceland;
             text-decoration: underline;
         }
         .d_show_header{
-            border: solid purple;
+            /* border: solid purple; */
             width: 100%;
             display: flex;
             flex-direction: row;
             justify-content: space-evenly;
             margin: auto auto 2.5% auto;
         }
+            .d_show_review_container{
+                /* border: solid yellowgreen; */
+                height: 30px;
+                display: flex;
+                justify-content: center;
+            }
+                .star{
+                    /* border: solid blue; */
+                    background-image: url('/icons/star_icon.png');
+                    height: 30px;
+                    width: 30px;
+                    background-position: center; 
+                    background-repeat: no-repeat; 
+                    background-size: cover; 
+                }
             .d_show_img_container{                
-                border: solid pink;
+                /* border: solid pink; */
                 width: 40%;
             }
                 .detailed_show img{                                
-                    border: solid blue;                    
+                    /* border: solid blue;                     */
                     max-width: 100%;                    
                 }
             .d_show_side_info_container{
                 width: 50%;
-                border: solid white;            
+                /* border: solid white;             */
                 display: flex;
                 flex-direction: column;
                 justify-content: space-evenly;
@@ -190,7 +206,7 @@ header{
                 font-family: Hubballi;
             }
             .d_show_side_info_container > *{
-                border: solid grey;
+                /* border: solid grey; */
                 font-size: medium;
             }
         .d_show_description{            
