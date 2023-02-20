@@ -139,17 +139,10 @@ function displayShows(shows){
         genres_paragraph.appendChild(document.createTextNode(show.genres));
         genres_paragraph.classList.add('show-genre');
 
-        //Create the description paragraph
-        let description_paragraph = document.createElement('p');
-        description_paragraph.innerHTML = (show.description);
-        description_paragraph.classList.add('show-description');
-        
-
         //Put everything together
         show_container.appendChild(show_title_heading);
         show_container.appendChild(image_container_div);
         show_container.appendChild(genres_paragraph);
-        show_container.appendChild(description_paragraph);
         return show_container;
     }
 
