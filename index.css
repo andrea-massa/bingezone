@@ -196,15 +196,6 @@ header{
                 display: flex;
                 justify-content: center;
             }
-                .star{
-                    /* border: solid blue; */
-                    background-image: url('/icons/star_icon.png');
-                    height: 30px;
-                    width: 30px;
-                    background-position: center; 
-                    background-repeat: no-repeat; 
-                    background-size: cover; 
-                }
             .d_show_img_container{                
                 border: solid pink;
                 overflow: hidden;
@@ -243,6 +234,7 @@ header{
 
 
 footer{    
+    color: var(--light_color);
     width: 100%;
     height: 20%;
     margin: 0px;
@@ -260,4 +252,16 @@ footer{
 }
 .opaque{
     opacity: 0.3;
+}
+.star{
+    /* border: solid blue; */
+    background-image: url('/icons/star_icon.png');
+    height: 30px;
+    width: 30px;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+}
+.star.unfilled{
+    background-image: url('/icons/star_icon_unfilled.png');
 }

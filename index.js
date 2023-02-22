@@ -195,14 +195,21 @@ function displayShowDetails(detailed_show){
         //Show review in stars
         let stars_container = document.createElement('span');   
         stars_container.classList.add('d_show_review_container'); 
-            //Round the rating to the nearest integer
-            let rating = Math.round(detailed_show.rating);        
-            //Based on the rating return x number of stars        
-            for (let x = 0; x < rating; x++){
-                let star = document.createElement('span');
-                star.classList.add('star');
-                stars_container.appendChild(star);
-            }  
+            if(detailed_show.rating != null){
+                //Round the rating to the nearest integer
+                let rating = Math.round(detailed_show.rating);        
+                //Based on the rating return x number of stars        
+                for (let x = 0; x < rating; x++){
+                    let star = document.createElement('span');
+                    star.classList.add('star');
+                    stars_container.appendChild(star);
+                }  
+                for(let x = rating; x < 10; x ++){
+                    let unfilled_star = document.createElement('span');
+                    unfilled_star.classList.add('star', 'unfilled');
+                    stars_container.appendChild(unfilled_star);
+                }
+            }
 
         //Show image
         let d_show_img_container = document.createElement('div');
