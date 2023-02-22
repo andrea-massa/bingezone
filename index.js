@@ -37,7 +37,12 @@ class Show_Detailed extends Show{
         super(tv_maze_data);
         this.rating = tv_maze_data.rating.average;
         this.official_site = tv_maze_data.officialSite;
-        this.country = tv_maze_data.network.country.name;
+        if(tv_maze_data.network){
+            this.country = tv_maze_data.network.country.name;
+        }
+        else{
+            this.country = 'Unknown';
+        }
         this.premiered_date = tv_maze_data.premiered;
         this.ended_date = tv_maze_data.ended;
     }
@@ -96,10 +101,11 @@ function searchShowDetail(show_id){
         console.log('Successful Api Call!');
         response.json()
         .then(function(data){
+           console.log(data);
            let show = new Show_Detailed(data);           
            displayShowDetails(show);
         })
-        .catch(function(e){
+        .catch(function(e){            
             console.log('Error parsing the data: ' + e);
         })
     })
@@ -161,6 +167,9 @@ function displayShows(shows){
         });
         document.getElementById('shows_container').appendChild(show_node); 
     }
+
+    //Set footer on the bottom
+    document.getElementsByTagName('footer')[0].style.position = "relative";
 }
 
 
@@ -290,7 +299,6 @@ function closeModalPanel(){
 THIS FUNCTION CLEARS THE FORMATTING OF THE PAGE BASED ON THREE PARAMETERS
  */
 function clearFormatting(search_bar, result_section, search_query, modal_panel){
-    console.log('reformatting called');
     //If this parameter is true, the search bar's text will be cleared
     if(search_bar){        
         document.getElementById('search_text').value = '';
@@ -305,8 +313,7 @@ function clearFormatting(search_bar, result_section, search_query, modal_panel){
     }
     //if this parameter is true, the detailed show section under the modal panel will be cleared
     if(modal_panel){
-        document.getElementById('d_show_container').remove();
-        console.log('Reformatting modal panel');
+        document.getElementById('d_show_container').remove();        
     }
 }
 
