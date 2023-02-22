@@ -1,3 +1,10 @@
+:root{
+    --light_color: #F8FCF8;
+    --lighter_dark: #40445A;
+    --darker_dark: #323949;
+    --modal_color: #212129;
+}
+
 @font-face {
     font-family: Iceland;
     src: url(./fonts/Iceland-Regular.ttf);
@@ -11,12 +18,14 @@
     src: url(./fonts/InriaSans-Light.ttf);
 }
 html{
-    margin: 0;
+    margin: 0px;
 }
 body{
     margin: 0;
-    background-color: #40445A;
+    background-color: var(--lighter_dark);
 }
+
+
 
 
 
@@ -24,21 +33,21 @@ body{
 header{    
     height: 30vh;
     text-align: center;    
-    background-color: #323949;
+    background-color: var(--darker_dark);
 }
     #app_title{           
         height: 20%;
         margin-bottom: 0;  
         margin-top: 0;
         padding-top: 10px;
-        color: white;        
+        color: var(--light_color);        
         font-family: Iceland;      
     }
     #app_subtitle{        
         height: 20%;
         margin-top: 0;
         margin-bottom: 0;
-        color: white;
+        color: var(--light_color);
         font-family: Hubballi;
     }
 
@@ -73,7 +82,7 @@ header{
     #search_query_container{
         /* border: solid orange; */
         text-align: center;
-        color: white;
+        color: var(--light_color);
         font-family: Inria Sans Light;
     }
     #shows_container{
@@ -90,11 +99,18 @@ header{
             width: 30%;
             margin-bottom: 5%;
             font-family: Hubballi;
-            color: white;
-            background-color: #323949;
+            color: var(--light_color);
+            background-color: var(--darker_dark);
             border-radius: 10px;
-            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));                                
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));   
+            opacity: 0.5;       
+            transition: all 0.2s;      
+            cursor: pointer;            
         }
+            .tv-show:hover{
+                width: 35%;
+                opacity: 1;
+            }        
         .tv-show h3{
             text-align: center;
         }
@@ -105,13 +121,147 @@ header{
             text-align: center;
             font-style: italic;
         }
-        .show-description{
-            /* border: solid yellow; */
+        .show-description{            
             margin-left: 10%;
             margin-right: 10%;
         }
 
 
+/*DETAILED SHOW VIEW*/
+#show_expanded_modal{
+    /* border: solid red; */
+    position: fixed;
+    top: 10%;
+    width: 70%;        
+    height: 85vh;
+    margin-left: 15%;
+    margin-right: 15%;
+    background-color: var(--modal_color);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    color: #FFFFFF;
+}
+    #close-btn{
+        /* border: solid white; */
+        float: right;
+        position: relative;
+        bottom: 40px;       
+        left: 30px;
+        cursor: pointer;
+        background-image: url("./icons/close_icon_darker.png");
+        height: 60px; 
+        width: 60px;
+        background-position: center; 
+        background-repeat: no-repeat; 
+        background-size: cover; 
+
+    }
+    #close-btn:hover{
+        background-image: url("./icons/close_icon_lighter.png");
+    }
+    .detailed_show{
+        position: relative;
+        left: 4%;
+        top: 2%;
+        width: 90%;       
+        height: 90%;         
+        margin: auto;
+        border: solid yellow;
+        display: flex;
+        flex-direction: column;        
+        text-align: center;
+        font-family: Hubballi;
+    }
+        .detailed_show h3{
+            height: 10%;          
+            margin: 0;  
+            border: solid blue;
+            font-size: x-large;
+            font-weight: bold;
+            font-family: Iceland;
+            text-decoration: underline;
+        }
+        .d_show_header{
+            border: solid purple;
+            width: 100%;
+            height: 40%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            margin: auto auto 2.5% auto;
+        }
+            .d_show_review_container{
+                border: solid yellowgreen;
+                height: 10%;
+                display: flex;
+                justify-content: center;
+            }
+            .d_show_img_container{                
+                border: solid pink;
+                overflow: hidden;
+                width: 40%;
+                height: 100%;                          
+            }
+                .detailed_show img{                                
+                    border: solid blue;                                    
+                    position: static;
+                    object-fit: fill;
+                }
+            .d_show_side_info_container{
+                width: 50%;
+                height: 100%;
+                border: solid var(--light_color);            
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                text-align: left;
+                font-family: Hubballi;
+            }
+                .d_show_side_info_container > *{
+                    margin: 0;
+                    border: solid grey;
+                    font-size: medium;
+                }
+        .d_show_description{            
+            border: groove var(--light_color);
+            width: 90%;
+            height: 40%;
+            margin: 0 auto 0 auto;
+            text-align: left;
+            font-family: Inria Sans Light;
+            font-size: medium;            
+        }
+
+
+footer{    
+    color: var(--light_color);
+    width: 100%;
+    height: 20%;
+    margin: 0px;
+    background-color: var(--darker_dark);
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}
+
+
+
+
 .hidden{
-    display: none;
+    display: none !important;
+}
+.opaque{
+    opacity: 0.3;
+}
+.star{
+    /* border: solid blue; */
+    background-image: url('/icons/star_icon.png');
+    height: 30px;
+    width: 30px;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+}
+.star.unfilled{
+    background-image: url('/icons/star_icon_unfilled.png');
 }
