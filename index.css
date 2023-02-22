@@ -80,7 +80,6 @@ header{
 
 /*RESULT SECTION*/
     #search_query_container{
-        /* border: solid orange; */
         text-align: center;
         color: var(--light_color);
         font-family: Inria Sans Light;
@@ -129,7 +128,6 @@ header{
 
 /*DETAILED SHOW VIEW*/
 #show_expanded_modal{
-    /* border: solid red; */
     position: fixed;
     top: 10%;
     width: 70%;        
@@ -142,7 +140,6 @@ header{
     color: #FFFFFF;
 }
     #close-btn{
-        /* border: solid white; */
         float: right;
         position: relative;
         bottom: 40px;       
@@ -166,7 +163,6 @@ header{
         width: 90%;       
         height: 90%;         
         margin: auto;
-        border: solid yellow;
         display: flex;
         flex-direction: column;        
         text-align: center;
@@ -175,14 +171,12 @@ header{
         .detailed_show h3{
             height: 10%;          
             margin: 0;  
-            border: solid blue;
             font-size: x-large;
             font-weight: bold;
             font-family: Iceland;
             text-decoration: underline;
         }
         .d_show_header{
-            border: solid purple;
             width: 100%;
             height: 40%;
             display: flex;
@@ -191,26 +185,22 @@ header{
             margin: auto auto 2.5% auto;
         }
             .d_show_review_container{
-                border: solid yellowgreen;
                 height: 10%;
                 display: flex;
                 justify-content: center;
             }
             .d_show_img_container{                
-                border: solid pink;
                 overflow: hidden;
                 width: 40%;
                 height: 100%;                          
             }
                 .detailed_show img{                                
-                    border: solid blue;                                    
                     position: static;
                     object-fit: fill;
                 }
             .d_show_side_info_container{
                 width: 50%;
                 height: 100%;
-                border: solid var(--light_color);            
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;
@@ -219,11 +209,10 @@ header{
             }
                 .d_show_side_info_container > *{
                     margin: 0;
-                    border: solid grey;
                     font-size: medium;
                 }
         .d_show_description{            
-            border: groove var(--light_color);
+            border-top: groove var(--light_color);
             width: 90%;
             height: 40%;
             margin: 0 auto 0 auto;
@@ -254,7 +243,6 @@ footer{
     opacity: 0.3;
 }
 .star{
-    /* border: solid blue; */
     background-image: url('/icons/star_icon.png');
     height: 30px;
     width: 30px;
